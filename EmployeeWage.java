@@ -10,8 +10,12 @@ public class EmployeeWage {
 		int emp_hours=0;
 		int num_of_working_days=20;
 		int totalempwage=0;
-		for(int day=0;day<num_of_working_days;day++)
+		int max_hrs_in_month=100;
+		int total_emp_hours = 0;
+		int total_working_days=0;
+		while(total_emp_hours < max_hrs_in_month && total_working_days < num_of_working_days )
 		{
+			total_working_days++;
 			int empcheck=(int) Math.floor(Math.random()*10)%3;
 			switch(empcheck)
 			{
@@ -24,10 +28,10 @@ public class EmployeeWage {
 			default:
 				emp_hours=0;
 			}
-		totalempwage+=emp_wage;	
-		emp_wage=emp_hours*emp_rate_per_hour;
-		System.out.println("Emp Wage: "+emp_wage);
+		total_emp_hours+=emp_hours;
+		System.out.println("Day# "+total_working_days+" emp hours: "+emp_hours);
 		}
+		totalempwage=total_emp_hours*emp_rate_per_hour;
 		System.out.println("Total emp wage :"+ totalempwage);
 	}
 
