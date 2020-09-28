@@ -3,11 +3,8 @@ package employeewage;
 public class EmployeeWage {
 	public static final int is_part_time = 1;
 	public static final int is_full_time = 2;
-	public static final int emp_rate_hour = 20;
-	public static final int no_of_working_days = 20;
-	public static final int max_hrs_in_month = 10;
 	
-	public static int computeEmpWage()
+	public static int computeEmpWage(String company, int emp_rate_hour, int no_of_working_days, int max_hrs_in_month)
 	{
 		int empHrs = 0, totalEmpHrs = 0, totalWrokingDays = 0;
 		
@@ -30,12 +27,13 @@ public class EmployeeWage {
 			System.out.println("Day# " + totalWrokingDays + " Emp Hour : " + empHrs);
 		}
 		int totalEmpWage = totalEmpHrs + emp_rate_hour;
-		System.out.println(" Total Emp Wage : " + totalEmpWage);
+		System.out.println(" Total Emp Wage for company : " + company + " is : " + totalEmpWage);
 		return totalEmpWage;
 	}
 	
 	public static void main(String[] args) {
-		computeEmpWage();
+		computeEmpWage("DMart", 20, 2, 10);
+		computeEmpWage("Reliance", 10, 4, 20);
 	}
 }	
 	
