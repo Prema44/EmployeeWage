@@ -1,30 +1,37 @@
 package employeewage;
 
+import java.util.ArrayList;
+
 public class CompanyEmpWage {
 	
 	public final String company;
-	public final int emp_rate_hour;
-	public final int max_hrs_in_month;
-	public final int no_of_working_days;
-	public int totalEmpWage;
+	public final int empRate;
+	public final int noOfWorkingDays;
+	public final int hrsPerMonth;
+	public int total_empwage;
 	
-	public CompanyEmpWage(String company, int emp_rate_hour, int no_of_working_days, int max_hrs_in_month)
-	{
+	
+	public ArrayList<Integer> dailyWage = new ArrayList<Integer>();
+	
+	public CompanyEmpWage(String company,int empRate,int noOfWorkingDays,int hrsPerMonth) {
 		this.company = company;
-		this.emp_rate_hour = emp_rate_hour;
-		this.no_of_working_days = no_of_working_days;
-		this.max_hrs_in_month = max_hrs_in_month;
-		totalEmpWage=0;
+		this.empRate = empRate;
+		this.noOfWorkingDays = noOfWorkingDays;
+		this.hrsPerMonth = hrsPerMonth;
 	}
-	
-	public void setTotalEmpWage ( int totalEmpWage)
-	{
-		this.totalEmpWage = totalEmpWage;
+	public int setTotal_EmpWage(int totalempwage) {
+		total_empwage = totalempwage;
+		return total_empwage;
 	}
-	
-	public String toString()
-	{
-		return "total Emp Wage for Company: " + company + " is " + totalEmpWage; 
+	public void setDailyWage(ArrayList<Integer> dailyWage) {
+		this.dailyWage = dailyWage;
+	}
+	public String toString() {
+		System.out.println("Daily Wage for "+company +" company is: ");
+		for(int i = 0; i < dailyWage.size(); i++ ) {
+			System.out.print(dailyWage.get(i) + " ");
+		}
+		return "\nTotal Employee Wage for"+ company +" company is "+ total_empwage;
 	}
 	
 }

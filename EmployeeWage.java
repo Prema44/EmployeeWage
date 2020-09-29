@@ -2,65 +2,66 @@ package employeewage;
 
 import java.util.ArrayList;
 
-public class EmployeeWage{
+public class EmployeeWage implements IComputeEmpWage{
 	
-		public static final int is_part_time = 1;
-		public static final int is_full_time = 2;
-		
-		private int numOfCompany = 0;
-		private ArrayList<CompanyEmpWage> companyEmpWageArrayList;
-		
-		public EmployeeWage()
-		{
-			companyEmpWageArrayList = new ArrayList<CompanyEmpWage>();
+	public static final int full_time = 1;
+	public static final int part_time = 2;
+	
+	private ArrayList<CompanyEmpWage> companyEmpWageList;
+	
+	public EmployeeWage() {
+		companyEmpWageList = new ArrayList<CompanyEmpWage>();
+	}
+	
+	public void addCompanyEmpWage(String company,int empRate,int noOfWorkingDays,int hrsPerMonth) {
+		CompanyEmpWage companyEmpWage = new CompanyEmpWage(company, empRate, noOfWorkingDays, hrsPerMonth);
+		companyEmpWageList.add(companyEmpWage);
+	}
+	public void computeEmpWage() {
+		for(int i = 0; i < companyEmpWageList.size(); i++) {
+			CompanyEmpWage companyEmpWage = companyEmpWageList.get(i);
+			
+			companyEmpWage.setTotal_EmpWage(this.computeEmpWage(companyEmpWage)); 
+			System.out.println(companyEmpWage);
 		}
+	}
+	private int computeEmpWage(CompanyEmpWage companyEmpWage) {
 		
-		private void addCompanyEmpWage(String company, int emp_rate_hour, int no_of_working_days, int max_hr_in_month)
-		{
-			companyEmpWageArrayList.add(new CompanyEmpWage(company, emp_rate_hour, no_of_working_days, max_hr_in_month));
-			numOfCompany++;
-		}
+		//variables
 		
-		private void computeEmpWage()
-		{
-			for(int i = 0; i < numOfCompany; i++)
-			{
-				companyEmpWageArrayList.get(i).setTotalEmpWage( this.computeEmpWage ( companyEmpWageArrayList.get(i)));
-				System.out.println(companyEmpWageArrayList.get(i));
+		int emp_hrs = 0;
+		int total_emp_hrs = 0;
+		int total_working_days = 0;
+		int empWage = 0;
+		ArrayList<Integer> dailyWage = new ArrayList<Integer>();
+		while(total_emp_hrs < companyEmpWage.hrsPerMonth 
+				&& total_working_days < companyEmpWage.noOfWorkingDays) {
+			
+			int empCheck = (int) Math.floor((Math.random() * 10))%3;
+			switch(empCheck) {
+				case full_time: emp_hrs = 8;
+								total_working_days++;
+						break;
+				case part_time: emp_hrs = 4;
+								total_working_days++;
+						break;
+				default: emp_hrs = 0;
+						
 			}
-		}
-		
-		private int computeEmpWage( CompanyEmpWage companyEmpWage)
-		{
-            int empHrs = 0, totalEmpHrs = 0, totalWrokingDays = 0;
-			
-			while(totalEmpHrs <= companyEmpWage.max_hrs_in_month && totalWrokingDays < companyEmpWage.no_of_working_days)
-			{
-				totalWrokingDays++;
-				int empcheck = (int) Math.floor(Math.random() * 10) %3;
-				switch (empcheck)
-				{
-				case is_part_time:
-					empHrs = 4;
-					break;
-				case is_full_time:
-					empHrs = 8;
-					break;
-				default:
-					empHrs = 0;
-				}
-				totalEmpHrs += empHrs;
-				System.out.println("Day# " + totalWrokingDays + " Emp Hour : " + empHrs);
+			total_emp_hrs += emp_hrs;
+			System.out.println("Days : "+total_working_days+" Emp Hr : "+ emp_hrs);
+			empWage = emp_hrs * companyEmpWage.empRate;
+			dailyWage.add(empWage);
 			}
-			return totalEmpHrs * companyEmpWage.emp_rate_hour;
-		}
-		
-		public static void main(String[] args) {
-			
-			EmployeeWage empWageBuilder = new EmployeeWage();
-			empWageBuilder.addCompanyEmpWage("DMart", 20, 2, 10);
-			empWageBuilder.addCompanyEmpWage("Reliance", 10, 4, 20);
-			empWageBuilder.computeEmpWage();
-			
+		companyEmpWage.setDailyWage(dailyWage);
+		return total_emp_hrs * companyEmpWage.empRate;
+	}
+	
+	
+	public static void main(String[] args) {
+		EmployeeWage empWageBuilder = new EmployeeWage();
+		empWageBuilder.addCompanyEmpWage("D-Mart",20,30,100);
+		empWageBuilder.addCompanyEmpWage("Reliance",25,27,95);
+		empWageBuilder.computeEmpWage();
 		}
 }
