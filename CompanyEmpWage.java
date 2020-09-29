@@ -14,6 +14,7 @@ public class CompanyEmpWage {
 		this.emp_rate_hour = emp_rate_hour;
 		this.no_of_working_days = no_of_working_days;
 		this.max_hrs_in_month = max_hrs_in_month;
+		totalEmpWage=0;
 	}
 	
 	public void setTotalEmpWage ( int totalEmpWage)
